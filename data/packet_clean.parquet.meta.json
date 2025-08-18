@@ -1,0 +1,941 @@
+{
+  "level": "packet",
+  "seed": 42,
+  "rows": 415197,
+  "numeric_cols": [
+    "average_p",
+    "channel_10_count",
+    "channel_10_mean",
+    "channel_10_var",
+    "channel_1_count",
+    "channel_1_mean",
+    "channel_1_var",
+    "channel_30_count",
+    "channel_30_mean",
+    "channel_30_var",
+    "channel_5_count",
+    "channel_5_mean",
+    "channel_5_var",
+    "channel_60_count",
+    "channel_60_mean",
+    "channel_60_var",
+    "dns_interval",
+    "dns_len_ans",
+    "dns_len_qry",
+    "dns_query_type",
+    "dst_port",
+    "eth_size",
+    "handshake_cipher_suites_length",
+    "handshake_extensions_length",
+    "handshake_sig_hash_alg_len",
+    "http_content_len",
+    "http_response_code",
+    "icmp_checksum_status",
+    "icmp_data_size",
+    "icmp_type",
+    "inter_arrival_time",
+    "iqr_p",
+    "jitter",
+    "l3_ip_dst_count",
+    "l4_tcp",
+    "l4_udp",
+    "max_p",
+    "med_p",
+    "min_e",
+    "min_et",
+    "min_p",
+    "most_freq_spot",
+    "ntp_interval",
+    "payload_entropy",
+    "payload_length",
+    "port_class_dst",
+    "q1",
+    "q1_e",
+    "q1_p",
+    "q3_p",
+    "src_ip_10_count",
+    "src_ip_10_mean",
+    "src_ip_10_var",
+    "src_ip_1_count",
+    "src_ip_1_mean",
+    "src_ip_1_var",
+    "src_ip_30_count",
+    "src_ip_30_mean",
+    "src_ip_30_var",
+    "src_ip_5_count",
+    "src_ip_5_mean",
+    "src_ip_5_var",
+    "src_ip_60_count",
+    "src_ip_60_mean",
+    "src_ip_60_var",
+    "src_ip_mac_10_count",
+    "src_ip_mac_10_mean",
+    "src_ip_mac_10_var",
+    "src_ip_mac_1_count",
+    "src_ip_mac_1_mean",
+    "src_ip_mac_1_var",
+    "src_ip_mac_30_count",
+    "src_ip_mac_30_mean",
+    "src_ip_mac_30_var",
+    "src_ip_mac_5_count",
+    "src_ip_mac_5_mean",
+    "src_ip_mac_5_var",
+    "src_ip_mac_60_count",
+    "src_ip_mac_60_mean",
+    "src_ip_mac_60_var",
+    "src_port",
+    "stream",
+    "stream_10_count",
+    "stream_10_mean",
+    "stream_10_var",
+    "stream_1_count",
+    "stream_1_mean",
+    "stream_1_var",
+    "stream_30_count",
+    "stream_30_mean",
+    "stream_30_var",
+    "stream_5_count",
+    "stream_5_mean",
+    "stream_5_var",
+    "stream_60_count",
+    "stream_60_mean",
+    "stream_60_var",
+    "stream_jitter_10_mean",
+    "stream_jitter_10_sum",
+    "stream_jitter_10_var",
+    "stream_jitter_1_mean",
+    "stream_jitter_1_sum",
+    "stream_jitter_1_var",
+    "stream_jitter_30_mean",
+    "stream_jitter_30_sum",
+    "stream_jitter_30_var",
+    "stream_jitter_5_mean",
+    "stream_jitter_5_sum",
+    "stream_jitter_5_var",
+    "stream_jitter_60_mean",
+    "stream_jitter_60_sum",
+    "stream_jitter_60_var",
+    "sum_p",
+    "tcp_window_size",
+    "time_since_previously_displayed_frame",
+    "ttl",
+    "var_e",
+    "var_p"
+  ],
+  "meta_cols": [
+    "dst_ip",
+    "src_ip"
+  ],
+  "medians": {
+    "average_p": 6.0,
+    "channel_10_count": 3203.0,
+    "channel_10_mean": 60.0,
+    "channel_10_var": 0.0,
+    "channel_1_count": 786.0,
+    "channel_1_mean": 60.0,
+    "channel_1_var": 0.0,
+    "channel_30_count": 3311.0,
+    "channel_30_mean": 60.0,
+    "channel_30_var": 0.0,
+    "channel_5_count": 2576.0,
+    "channel_5_mean": 60.0,
+    "channel_5_var": 0.0,
+    "channel_60_count": 3863.0,
+    "channel_60_mean": 60.0,
+    "channel_60_var": 0.0,
+    "dns_interval": 0.0,
+    "dns_len_ans": 0.0,
+    "dns_len_qry": 0.0,
+    "dns_query_type": 1.0,
+    "dst_port": 6668.0,
+    "eth_size": 60.0,
+    "handshake_cipher_suites_length": 0.0,
+    "handshake_extensions_length": 0.0,
+    "handshake_sig_hash_alg_len": 0.0,
+    "http_content_len": 0.0,
+    "http_response_code": 0.0,
+    "icmp_checksum_status": -1.0,
+    "icmp_data_size": -1.0,
+    "icmp_type": -1.0,
+    "inter_arrival_time": 16.730239,
+    "iqr_p": 0.0,
+    "jitter": 0.04995,
+    "l3_ip_dst_count": 3.0,
+    "l4_tcp": 1.0,
+    "l4_udp": 0.0,
+    "max_p": 6.0,
+    "med_p": 6.0,
+    "min_e": 60.0,
+    "min_et": 26.0,
+    "min_p": 6.0,
+    "most_freq_spot": 17841.0,
+    "ntp_interval": 0.0,
+    "payload_entropy": 0.0,
+    "payload_length": 0.0,
+    "port_class_dst": 2.0,
+    "q1": 26.0,
+    "q1_e": 60.0,
+    "q1_p": 6.0,
+    "q3_p": 6.0,
+    "src_ip_10_count": 3507.0,
+    "src_ip_10_mean": 60.0,
+    "src_ip_10_var": 0.0,
+    "src_ip_1_count": 815.0,
+    "src_ip_1_mean": 60.0,
+    "src_ip_1_var": 0.0,
+    "src_ip_30_count": 3591.0,
+    "src_ip_30_mean": 60.0,
+    "src_ip_30_var": 0.0,
+    "src_ip_5_count": 2709.0,
+    "src_ip_5_mean": 60.0,
+    "src_ip_5_var": 0.0,
+    "src_ip_60_count": 3611.0,
+    "src_ip_60_mean": 60.0,
+    "src_ip_60_var": 0.0,
+    "src_ip_mac_10_count": 3106.0,
+    "src_ip_mac_10_mean": 60.0,
+    "src_ip_mac_10_var": 0.0,
+    "src_ip_mac_1_count": 762.0,
+    "src_ip_mac_1_mean": 60.0,
+    "src_ip_mac_1_var": 0.0,
+    "src_ip_mac_30_count": 3201.0,
+    "src_ip_mac_30_mean": 60.0,
+    "src_ip_mac_30_var": 0.0,
+    "src_ip_mac_5_count": 2509.0,
+    "src_ip_mac_5_mean": 60.0,
+    "src_ip_mac_5_var": 0.0,
+    "src_ip_mac_60_count": 3215.0,
+    "src_ip_mac_60_mean": 60.0,
+    "src_ip_mac_60_var": 0.0,
+    "src_port": 32294.0,
+    "stream": 18282.0,
+    "stream_10_count": 1.0,
+    "stream_10_mean": 60.0,
+    "stream_10_var": 7744.7958959899825,
+    "stream_1_count": 1.0,
+    "stream_1_mean": 60.0,
+    "stream_1_var": 72610.56666666665,
+    "stream_30_count": 1.0,
+    "stream_30_mean": 60.0,
+    "stream_30_var": 7388.8,
+    "stream_5_count": 1.0,
+    "stream_5_mean": 60.0,
+    "stream_5_var": 15431.583333333334,
+    "stream_60_count": 1.0,
+    "stream_60_mean": 60.0,
+    "stream_60_var": 8192.0,
+    "stream_jitter_10_mean": 2.060751,
+    "stream_jitter_10_sum": 10.279214,
+    "stream_jitter_10_var": 0.8256266350604998,
+    "stream_jitter_1_mean": 0.5784605,
+    "stream_jitter_1_sum": 2.474623,
+    "stream_jitter_1_var": 0.00837964419642705,
+    "stream_jitter_30_mean": 2.205013935483871,
+    "stream_jitter_30_sum": 30.140279,
+    "stream_jitter_30_var": 6.183494057754105,
+    "stream_jitter_5_mean": 1.862047667,
+    "stream_jitter_5_sum": 5.690217001,
+    "stream_jitter_5_var": 0.1351022153446348,
+    "stream_jitter_60_mean": 2.296520214285714,
+    "stream_jitter_60_sum": 60.189857,
+    "stream_jitter_60_var": 21.078059884605715,
+    "sum_p": 120.0,
+    "tcp_window_size": 512.0,
+    "time_since_previously_displayed_frame": 2.4e-05,
+    "ttl": 64.0,
+    "var_e": 0.0,
+    "var_p": 0.0
+  },
+  "scale_params": {
+    "average_p": {
+      "mean": 76.94564098488188,
+      "std": 118.86117386883977
+    },
+    "channel_10_count": {
+      "mean": 9177.970905377448,
+      "std": 12551.440822624725
+    },
+    "channel_10_mean": {
+      "mean": 147.89637769880127,
+      "std": 152.11725495848708
+    },
+    "channel_10_var": {
+      "mean": 3836.983404474949,
+      "std": 6522.573727784666
+    },
+    "channel_1_count": {
+      "mean": 1321.5747223607107,
+      "std": 1513.4577193915638
+    },
+    "channel_1_mean": {
+      "mean": 129.52103089047117,
+      "std": 116.58875880540234
+    },
+    "channel_1_var": {
+      "mean": 1935.476534014988,
+      "std": 3437.8880836285953
+    },
+    "channel_30_count": {
+      "mean": 11538.434401019274,
+      "std": 16882.730695760467
+    },
+    "channel_30_mean": {
+      "mean": 143.47481823557126,
+      "std": 142.5297642384936
+    },
+    "channel_30_var": {
+      "mean": 8802.91411963006,
+      "std": 15327.94798400698
+    },
+    "channel_5_count": {
+      "mean": 5517.8663212884485,
+      "std": 6893.057771974206
+    },
+    "channel_5_mean": {
+      "mean": 136.50400361347891,
+      "std": 128.96757292755083
+    },
+    "channel_5_var": {
+      "mean": 2247.873977541579,
+      "std": 3823.4911369891256
+    },
+    "channel_60_count": {
+      "mean": 11618.081101260366,
+      "std": 16775.697813842275
+    },
+    "channel_60_mean": {
+      "mean": 140.37487615459597,
+      "std": 135.04348400655172
+    },
+    "channel_60_var": {
+      "mean": 9408.419105908548,
+      "std": 16165.869960497208
+    },
+    "dns_interval": {
+      "mean": 1.5851101715715674,
+      "std": 552.0184211721242
+    },
+    "dns_len_ans": {
+      "mean": 0.08210560288248711,
+      "std": 1.5002904123266014
+    },
+    "dns_len_qry": {
+      "mean": 0.39704044104364916,
+      "std": 3.265034096431399
+    },
+    "dns_query_type": {
+      "mean": 1.0693791140109394,
+      "std": 1.486709016516084
+    },
+    "dst_port": {
+      "mean": 16276.352345994794,
+      "std": 20986.430963197767
+    },
+    "eth_size": {
+      "mean": 66.33124275946118,
+      "std": 9.83127074319816
+    },
+    "handshake_cipher_suites_length": {
+      "mean": 0.1935563118230623,
+      "std": 4.8513420185859575
+    },
+    "handshake_extensions_length": {
+      "mean": 0.3033644270069389,
+      "std": 8.251046770392358
+    },
+    "handshake_sig_hash_alg_len": {
+      "mean": 0.03311680961085942,
+      "std": 1.0113037809505088
+    },
+    "http_content_len": {
+      "mean": 1.2982246981553336,
+      "std": 210.23526667775374
+    },
+    "http_response_code": {
+      "mean": 0.2504329270201856,
+      "std": 8.434470951411669
+    },
+    "icmp_checksum_status": {
+      "mean": -0.9876877723104935,
+      "std": 0.15643805300608482
+    },
+    "icmp_data_size": {
+      "mean": -0.8677712025857605,
+      "std": 2.556798485092912
+    },
+    "icmp_type": {
+      "mean": -0.9614183146795376,
+      "std": 0.545090744232113
+    },
+    "inter_arrival_time": {
+      "mean": 1197.434313681633,
+      "std": 2032.8685065524407
+    },
+    "iqr_p": {
+      "mean": 37.03483406672014,
+      "std": 65.1234957778049
+    },
+    "jitter": {
+      "mean": 14.067943405983113,
+      "std": 1181.440463577825
+    },
+    "l3_ip_dst_count": {
+      "mean": 8.958441414557427,
+      "std": 11.50518533244483
+    },
+    "l4_tcp": {
+      "mean": 0.8879014058386742,
+      "std": 0.31548771663629027
+    },
+    "l4_udp": {
+      "mean": 0.08372892867723032,
+      "std": 0.2769808570637935
+    },
+    "max_p": {
+      "mean": 236.3321989320732,
+      "std": 380.70089119260587
+    },
+    "med_p": {
+      "mean": 19.51075272701874,
+      "std": 21.70762007416058
+    },
+    "min_e": {
+      "mean": 62.32099942918663,
+      "std": 5.568858860165244
+    },
+    "min_et": {
+      "mean": 28.320999429186628,
+      "std": 5.568858860165244
+    },
+    "min_p": {
+      "mean": 7.936314568746884,
+      "std": 5.876440836620773
+    },
+    "most_freq_spot": {
+      "mean": 24024.37039766665,
+      "std": 22432.608469357572
+    },
+    "ntp_interval": {
+      "mean": 0.06361528570293107,
+      "std": 9.575930252019726
+    },
+    "payload_entropy": {
+      "mean": 0.8111845184176533,
+      "std": 1.4228864143209652
+    },
+    "payload_length": {
+      "mean": 6.59127594852564,
+      "std": 11.650807416148126
+    },
+    "port_class_dst": {
+      "mean": 1.8902809991401672,
+      "std": 0.6911569563899347
+    },
+    "q1": {
+      "mean": 29.734081050681965,
+      "std": 7.201425876778783
+    },
+    "q1_e": {
+      "mean": 63.734081050681965,
+      "std": 7.201425876778783
+    },
+    "q1_p": {
+      "mean": 9.670338417666795,
+      "std": 7.293995053710032
+    },
+    "q3_p": {
+      "mean": 80.9677701187629,
+      "std": 131.5126919904978
+    },
+    "src_ip_10_count": {
+      "mean": 9093.71686934154,
+      "std": 12445.55141808847
+    },
+    "src_ip_10_mean": {
+      "mean": 96.90424442294393,
+      "std": 63.211544380872546
+    },
+    "src_ip_10_var": {
+      "mean": 533.40998387423,
+      "std": 918.5481003313073
+    },
+    "src_ip_1_count": {
+      "mean": 1313.9099246863536,
+      "std": 1500.0752944380754
+    },
+    "src_ip_1_mean": {
+      "mean": 87.40333164352242,
+      "std": 46.9568502627877
+    },
+    "src_ip_1_var": {
+      "mean": 137769.4476248949,
+      "std": 764408.4382319044
+    },
+    "src_ip_30_count": {
+      "mean": 11342.217157156723,
+      "std": 16633.52015320349
+    },
+    "src_ip_30_mean": {
+      "mean": 97.84284097352743,
+      "std": 64.13938475777842
+    },
+    "src_ip_30_var": {
+      "mean": 3636.3637414312843,
+      "std": 6423.820056232985
+    },
+    "src_ip_5_count": {
+      "mean": 5482.360725149748,
+      "std": 6834.227176502139
+    },
+    "src_ip_5_mean": {
+      "mean": 95.33927580880957,
+      "std": 61.15365999308765
+    },
+    "src_ip_5_var": {
+      "mean": 52.15864410675705,
+      "std": 89.74517935724924
+    },
+    "src_ip_60_count": {
+      "mean": 11389.810993335694,
+      "std": 16457.112809883958
+    },
+    "src_ip_60_mean": {
+      "mean": 98.5359010321089,
+      "std": 64.807458590949
+    },
+    "src_ip_60_var": {
+      "mean": 4092.795216897386,
+      "std": 7103.380194605188
+    },
+    "src_ip_mac_10_count": {
+      "mean": 9016.640847597646,
+      "std": 12490.672451404262
+    },
+    "src_ip_mac_10_mean": {
+      "mean": 97.3391197570465,
+      "std": 63.63964659340314
+    },
+    "src_ip_mac_10_var": {
+      "mean": 532.4048123086837,
+      "std": 916.6440421701627
+    },
+    "src_ip_mac_1_count": {
+      "mean": 1296.0406794846783,
+      "std": 1510.7108526692814
+    },
+    "src_ip_mac_1_mean": {
+      "mean": 87.9324522395931,
+      "std": 47.715887245174706
+    },
+    "src_ip_mac_1_var": {
+      "mean": 137775.3440897799,
+      "std": 764408.0334481066
+    },
+    "src_ip_mac_30_count": {
+      "mean": 11268.843349060808,
+      "std": 16693.602739350263
+    },
+    "src_ip_mac_30_mean": {
+      "mean": 98.2395465564174,
+      "std": 64.41823916565559
+    },
+    "src_ip_mac_30_var": {
+      "mean": 3798.6206720098626,
+      "std": 6712.676738356704
+    },
+    "src_ip_mac_5_count": {
+      "mean": 5422.831829228053,
+      "std": 6869.810640904122
+    },
+    "src_ip_mac_5_mean": {
+      "mean": 95.71661337877994,
+      "std": 61.48063905372858
+    },
+    "src_ip_mac_5_var": {
+      "mean": 59.66105597377456,
+      "std": 102.64161606514357
+    },
+    "src_ip_mac_60_count": {
+      "mean": 11332.848922318803,
+      "std": 16563.48230974611
+    },
+    "src_ip_mac_60_mean": {
+      "mean": 98.94714660730021,
+      "std": 65.09657706803847
+    },
+    "src_ip_mac_60_var": {
+      "mean": 4200.745453367592,
+      "std": 7267.651793101348
+    },
+    "src_port": {
+      "mean": 29636.196321264364,
+      "std": 21501.187272028597
+    },
+    "stream": {
+      "mean": 56502.10267415227,
+      "std": 77691.50801517293
+    },
+    "stream_10_count": {
+      "mean": 13.355241006076634,
+      "std": 20.806691798805975
+    },
+    "stream_10_mean": {
+      "mean": 141.82072814811863,
+      "std": 139.81911929171662
+    },
+    "stream_10_var": {
+      "mean": 267673.94205877016,
+      "std": 655461.9826472278
+    },
+    "stream_1_count": {
+      "mean": 5.546699518541801,
+      "std": 7.773032625618228
+    },
+    "stream_1_mean": {
+      "mean": 128.82359934198428,
+      "std": 115.35680837424378
+    },
+    "stream_1_var": {
+      "mean": 313501.01684423257,
+      "std": 779485.1232896656
+    },
+    "stream_30_count": {
+      "mean": 21.75119762426029,
+      "std": 34.39108217098686
+    },
+    "stream_30_mean": {
+      "mean": 142.30352380265913,
+      "std": 140.74346670045756
+    },
+    "stream_30_var": {
+      "mean": 271301.98566318536,
+      "std": 654731.9501103606
+    },
+    "stream_5_count": {
+      "mean": 10.326240314838499,
+      "std": 15.830342018688631
+    },
+    "stream_5_mean": {
+      "mean": 132.28783083958504,
+      "std": 120.65398512722909
+    },
+    "stream_5_var": {
+      "mean": 271510.87904981914,
+      "std": 663846.1592299744
+    },
+    "stream_60_count": {
+      "mean": 31.29627381700735,
+      "std": 50.52879790510326
+    },
+    "stream_60_mean": {
+      "mean": 140.25516660575974,
+      "std": 136.01298021883437
+    },
+    "stream_60_var": {
+      "mean": 273773.303609565,
+      "std": 655896.0153801967
+    },
+    "stream_jitter_10_mean": {
+      "mean": 28.898666062856755,
+      "std": 1273.4507149946787
+    },
+    "stream_jitter_10_sum": {
+      "mean": 161.02951323118646,
+      "std": 2219.1944163647227
+    },
+    "stream_jitter_10_var": {
+      "mean": 662675.7431708951,
+      "std": 113913925.62846942
+    },
+    "stream_jitter_1_mean": {
+      "mean": 26.550031928022243,
+      "std": 1267.5202710242183
+    },
+    "stream_jitter_1_sum": {
+      "mean": 87.65719333834296,
+      "std": 1861.783509305671
+    },
+    "stream_jitter_1_var": {
+      "mean": 561236.4088355723,
+      "std": 110676563.28180036
+    },
+    "stream_jitter_30_mean": {
+      "mean": 29.834851008906806,
+      "std": 1277.6894210392713
+    },
+    "stream_jitter_30_sum": {
+      "mean": 243.98264897333172,
+      "std": 2990.0317735932476
+    },
+    "stream_jitter_30_var": {
+      "mean": 792112.1566340068,
+      "std": 116013336.32589284
+    },
+    "stream_jitter_5_mean": {
+      "mean": 28.512949529832806,
+      "std": 1273.007931354322
+    },
+    "stream_jitter_5_sum": {
+      "mean": 137.29899140016798,
+      "std": 2139.9221551506653
+    },
+    "stream_jitter_5_var": {
+      "mean": 654037.1831084248,
+      "std": 113875254.62684639
+    },
+    "stream_jitter_60_mean": {
+      "mean": 30.510817336492018,
+      "std": 1282.0303008967803
+    },
+    "stream_jitter_60_sum": {
+      "mean": 311.63975592047757,
+      "std": 3816.266228287677
+    },
+    "stream_jitter_60_var": {
+      "mean": 920865.0143104425,
+      "std": 118911141.73405479
+    },
+    "sum_p": {
+      "mean": 1538.9128196976376,
+      "std": 2377.2234773767955
+    },
+    "tcp_window_size": {
+      "mean": 1337.4590688275687,
+      "std": 1597.9711738407455
+    },
+    "time_since_previously_displayed_frame": {
+      "mean": 0.0013967303111535006,
+      "std": 0.0023389503010987863
+    },
+    "ttl": {
+      "mean": 82.0188440667924,
+      "std": 56.559962334137175
+    },
+    "var_e": {
+      "mean": 6249.563484714865,
+      "std": 10702.737036571729
+    },
+    "var_p": {
+      "mean": 7012.468107498242,
+      "std": 12179.554626254156
+    }
+  },
+  "source_files": [
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Benign/BenignTraffic.csv",
+      "rows": 29706,
+      "label": 0,
+      "attack_type": "Benign"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Benign/BenignTraffic3.csv",
+      "rows": 29533,
+      "label": 0,
+      "attack_type": "Benign"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Benign/BenignTraffic1.csv",
+      "rows": 29520,
+      "label": 0,
+      "attack_type": "Benign"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Benign/BenignTraffic2.csv",
+      "rows": 29520,
+      "label": 0,
+      "attack_type": "Benign"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/DNS_Spoofing/DNS_Spoofing.csv",
+      "rows": 29602,
+      "label": 1,
+      "attack_type": "DNS Spoofing"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/XSS/XSS.csv",
+      "rows": 4010,
+      "label": 1,
+      "attack_type": "Cross-Site Scripting (XSS)"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/DDoS-TCP_Flood/DDoS-TCP_Flood2.csv",
+      "rows": 8628,
+      "label": 1,
+      "attack_type": "DDoS-TCP_Flood"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/DDoS-TCP_Flood/DDoS-TCP_Flood14.csv",
+      "rows": 8514,
+      "label": 1,
+      "attack_type": "DDoS-TCP_Flood"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/DDoS-TCP_Flood/DDoS-TCP_Flood7.csv",
+      "rows": 8470,
+      "label": 1,
+      "attack_type": "DDoS-TCP_Flood"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/DDoS-TCP_Flood/DDoS-TCP_Flood10.csv",
+      "rows": 8954,
+      "label": 1,
+      "attack_type": "DDoS-TCP_Flood"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/DDoS-TCP_Flood/DDoS-TCP_Flood15.csv",
+      "rows": 8662,
+      "label": 1,
+      "attack_type": "DDoS-TCP_Flood"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/DDoS-TCP_Flood/DDoS-TCP_Flood1.csv",
+      "rows": 8450,
+      "label": 1,
+      "attack_type": "DDoS-TCP_Flood"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/DDoS-TCP_Flood/DDoS-TCP_Flood4.csv",
+      "rows": 8655,
+      "label": 1,
+      "attack_type": "DDoS-TCP_Flood"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/DDoS-TCP_Flood/DDoS-TCP_Flood12.csv",
+      "rows": 8739,
+      "label": 1,
+      "attack_type": "DDoS-TCP_Flood"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/DDoS-TCP_Flood/DDoS-TCP_Flood17.csv",
+      "rows": 8608,
+      "label": 1,
+      "attack_type": "DDoS-TCP_Flood"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/DDoS-TCP_Flood/DDoS-TCP_Flood6.csv",
+      "rows": 8682,
+      "label": 1,
+      "attack_type": "DDoS-TCP_Flood"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/DDoS-TCP_Flood/DDoS-TCP_Flood8.csv",
+      "rows": 8535,
+      "label": 1,
+      "attack_type": "DDoS-TCP_Flood"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/DDoS-TCP_Flood/DDoS-TCP_Flood13.csv",
+      "rows": 8560,
+      "label": 1,
+      "attack_type": "DDoS-TCP_Flood"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/DDoS-TCP_Flood/DDoS-TCP_Flood3.csv",
+      "rows": 8881,
+      "label": 1,
+      "attack_type": "DDoS-TCP_Flood"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/DDoS-TCP_Flood/DDoS-TCP_Flood16.csv",
+      "rows": 8670,
+      "label": 1,
+      "attack_type": "DDoS-TCP_Flood"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/DDoS-TCP_Flood/DDoS-TCP_Flood.csv",
+      "rows": 8542,
+      "label": 1,
+      "attack_type": "DDoS-TCP_Flood"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/DDoS-TCP_Flood/DDoS-TCP_Flood9.csv",
+      "rows": 8921,
+      "label": 1,
+      "attack_type": "DDoS-TCP_Flood"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/DDoS-TCP_Flood/DDoS-TCP_Flood11.csv",
+      "rows": 8732,
+      "label": 1,
+      "attack_type": "DDoS-TCP_Flood"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/DDoS-TCP_Flood/DDoS-TCP_Flood5.csv",
+      "rows": 9653,
+      "label": 1,
+      "attack_type": "DDoS-TCP_Flood"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/DoS-TCP_Flood/DoS-TCP_Flood10.csv",
+      "rows": 8992,
+      "label": 1,
+      "attack_type": "DoS-TCP_Flood"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/DoS-TCP_Flood/DoS-TCP_Flood2.csv",
+      "rows": 8834,
+      "label": 1,
+      "attack_type": "DoS-TCP_Flood"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/DoS-TCP_Flood/DoS-TCP_Flood1.csv",
+      "rows": 4652,
+      "label": 1,
+      "attack_type": "DoS-TCP_Flood"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/DoS-TCP_Flood/DoS-TCP_Flood7.csv",
+      "rows": 8621,
+      "label": 1,
+      "attack_type": "DoS-TCP_Flood"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/DoS-TCP_Flood/DoS-TCP_Flood8.csv",
+      "rows": 8774,
+      "label": 1,
+      "attack_type": "DoS-TCP_Flood"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/DoS-TCP_Flood/DoS-TCP_Flood.csv",
+      "rows": 8971,
+      "label": 1,
+      "attack_type": "DoS-TCP_Flood"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/DoS-TCP_Flood/DoS-TCP_Flood4.csv",
+      "rows": 8689,
+      "label": 1,
+      "attack_type": "DoS-TCP_Flood"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/DoS-TCP_Flood/DoS-TCP_Flood5.csv",
+      "rows": 8981,
+      "label": 1,
+      "attack_type": "DoS-TCP_Flood"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/DoS-TCP_Flood/DoS-TCP_Flood6.csv",
+      "rows": 9031,
+      "label": 1,
+      "attack_type": "DoS-TCP_Flood"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/DoS-TCP_Flood/DoS-TCP_Flood3.csv",
+      "rows": 9086,
+      "label": 1,
+      "attack_type": "DoS-TCP_Flood"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/DoS-TCP_Flood/DoS-TCP_Flood9.csv",
+      "rows": 8671,
+      "label": 1,
+      "attack_type": "DoS-TCP_Flood"
+    },
+    {
+      "file": "/workspaces/IoT_IDS_Model/datasets/packet/Attacks/Brute_Force/DictionaryBruteForce.csv",
+      "rows": 13148,
+      "label": 1,
+      "attack_type": "Brute Force"
+    }
+  ]
+}
