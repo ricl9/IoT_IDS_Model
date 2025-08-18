@@ -56,3 +56,46 @@ For this phase:
 5. If you completed the optional flow-level anomaly detection, consider using those features to enhance your supervised model
 6. As discussed in the class, methods like attention network and GNNs could add more information regarding topology and connections and might help with the performance
 7. If you are trying different models and methods, document the results on the validation to show your evolution and progress
+
+
+## Evaluation Framework
+### Performance Metrics
+For Packet-Level Detection (Phase 2):
+• Overall precision, recall, and F1-score
+• Detection rates for each individual attack type
+• False Positive Rate (FPR) and False Negative Rate (FNR)
+• ROC curves and AUC scores
+• Confusion matrices to understand misclassification patterns
+• Analysis of how you handled the severe class imbalance
+### For Flow-Level Refinement (Phase 3):
+• Quantify the reduction in false positives
+• Overall system accuracy after both stages
+• Performance breakdown by attack class
+• Combined precision and recall metrics
+• Computational overhead and time complexity comparison
+### Comparative Analysis:
+Provide insights on:
+• How does your two-stage approach compare to using either method alone?
+• Which attacks are easiest to detect at the anomaly-based packet level and why?
+• How do DDoS and DoS attacks cluster differently in your unsupervised analysis?
+• What's the statistical significance of your improvements?
+
+
+### Technical Report
+Structure your report to tell the story of your investigation:
+Introduction and Approach Set up the problem and explain your methodology choices. Why did you choose specific algorithms? How does your approach address the challenges of IoT network security?
+### Implementation Journey Detail your implementation process, including:
+• Data preprocessing decisions and their rationale
+• Model architectures and hyperparameter tuning strategies
+• Training procedures and optimization approaches
+• Any challenges you encountered and how you solved them
+### Results and Analysis Present your findings with clear visualizations:
+• Performance metrics across both phases
+• ROC curves, precision-recall curves, and confusion matrices
+• Performance breakdown by attack type (including both DDoS-TCP_Flood and DoS-TCP_Flood variants)
+• Statistical analysis demonstrating improvement significance
+### Key Insights This is where you demonstrate deep understanding:
+• Does flow duration or packet count correlate with classification accuracy? Show the data.
+• Which attacks benefit most from your two-stage approach and why?
+### Conclusions and Future Directions
+Summarize your contributions, acknowledge limitations, and suggest improvements.
