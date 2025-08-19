@@ -15,6 +15,9 @@ def main():
     ap.add_argument("--seed", type=int, default=42)
     ap.add_argument("--pca", type=int, default=20)
     ap.add_argument("--kmeans-k", type=int, nargs="*", default=[5, 10, 15])
+    ap.add_argument("--methods", type=str, nargs="*", default=["kmeans", "iforest", "lof", "autoencoder"],
+                    help='Subset of methods to run: any of {"kmeans","iforest","lof","autoencoder"}')
+    ap.add_argument("--target-fpr", type=float, default=0.02, help="Target FPR used to set anomaly threshold from benign train scores")
     args = ap.parse_args()
 
     cfg = Phase2Config(
@@ -24,6 +27,8 @@ def main():
         seed=args.seed,
         pca_components=args.pca,
         kmeans_k_list=tuple(args.kmeans_k),
+    methods=tuple(args.methods),
+    target_fpr=args.target_fpr,
     )
     res = run_phase2(cfg)
     print("Best method:", res["best"]["name"]) 

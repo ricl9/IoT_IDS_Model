@@ -41,10 +41,14 @@ class Phase2Config:
     seed: int = RANDOM_SEED
     # Visualization sampling to keep plots snappy
     viz_sample: int = 50000
+    # Which methods to run: any of {"kmeans","iforest","lof","autoencoder"}
+    methods: Tuple[str, ...] = ("kmeans", "iforest", "lof", "autoencoder")
     # PCA dimensionality for clustering
     pca_components: int = 20
     # Candidate K for KMeans
     kmeans_k_list: Tuple[int, ...] = (5, 10, 15)
+    # Target FPR when calibrating threshold on benign train scores
+    target_fpr: float = 0.02
     # Fraction of benign for train/val/test
     train_frac: float = 0.7
     val_frac: float = 0.15  # remainder goes to test
@@ -173,8 +177,7 @@ def method_kmeans_pca(X_train: np.ndarray, X_val: np.ndarray, X_test: np.ndarray
         s_train = scores(Z_train)
         s_val = scores(Z_val)
         s_test = scores(Z_test)
-
-        thr = _threshold_from_benign(s_train, target_fpr=0.02)
+        thr = _threshold_from_benign(s_train, target_fpr=cfg.target_fpr)
 
         res = {
             "k": k,
@@ -185,8 +188,8 @@ def method_kmeans_pca(X_train: np.ndarray, X_val: np.ndarray, X_test: np.ndarray
             "scores_test": s_test,
         }
 
-        if best is None or np.std(s_val) > 0 and k == k:  # keep last; we'll compare by metrics outside
-            best = res
+        # Keep the last result; selection is done by validation F1 later.
+        best = res
 
     return best, {"Z_train": Z_train, "Z_val": Z_val, "Z_test": Z_test, "pca": pca}
 
@@ -195,7 +198,7 @@ def method_isolation_forest(X_train: np.ndarray, X_val: np.ndarray, X_test: np.n
     iforest = IsolationForest(
         n_estimators=200,
         max_samples="auto",
-        contamination=0.02,
+        contamination=cfg.target_fpr,
         random_state=cfg.seed,
         n_jobs=-1,
     )
@@ -228,8 +231,8 @@ def method_lof(X_train: np.ndarray, X_val: np.ndarray, X_test: np.ndarray, cfg: 
     }
 
 
-def _evaluate_method(name: str, scores: Dict, y_val: np.ndarray, y_test: np.ndarray, attack_type_val: List[str], attack_type_test: List[str]) -> Dict:
-    thr = _threshold_from_benign(scores["scores_train"], target_fpr=0.02)
+def _evaluate_method(name: str, scores: Dict, y_val: np.ndarray, y_test: np.ndarray, attack_type_val: List[str], attack_type_test: List[str], target_fpr: float) -> Dict:
+    thr = _threshold_from_benign(scores["scores_train"], target_fpr=target_fpr)
     yhat_val = (scores["scores_val"] >= thr).astype(int)
     yhat_test = (scores["scores_test"] >= thr).astype(int)
 
@@ -290,25 +293,28 @@ def run_phase2(cfg: Phase2Config) -> Dict:
     # Method 1: KMeans + PCA
     km_best, km_artifacts = method_kmeans_pca(X_tr, X_val, X_te, cfg)
     # Evaluate with last fit's scores (already computed)
-    res_km = _evaluate_method("KMeans+PCA(k={})".format(km_best["k"]), km_best, y_val, y_te, attack_val, attack_te)
-    results.append(res_km)
+    if "kmeans" in cfg.methods:
+        res_km = _evaluate_method("KMeans+PCA(k={})".format(km_best["k"]), km_best, y_val, y_te, attack_val, attack_te, cfg.target_fpr)
+        results.append(res_km)
 
     # Method 2: Isolation Forest
     res_if_scores = method_isolation_forest(X_tr, X_val, X_te, cfg)
-    res_if = _evaluate_method("IsolationForest", res_if_scores, y_val, y_te, attack_val, attack_te)
-    results.append(res_if)
+    if "iforest" in cfg.methods:
+        res_if = _evaluate_method("IsolationForest", res_if_scores, y_val, y_te, attack_val, attack_te, cfg.target_fpr)
+        results.append(res_if)
 
     # Method 3: Local Outlier Factor (novelty)
     res_lof_scores = method_lof(X_tr, X_val, X_te, cfg)
-    res_lof = _evaluate_method("LOF(novelty)", res_lof_scores, y_val, y_te, attack_val, attack_te)
-    results.append(res_lof)
+    if "lof" in cfg.methods:
+        res_lof = _evaluate_method("LOF(novelty)", res_lof_scores, y_val, y_te, attack_val, attack_te, cfg.target_fpr)
+        results.append(res_lof)
 
     # Method 4: Autoencoder (if torch available)
     res_ae_scores = None
-    if torch is not None:
+    if "autoencoder" in cfg.methods and torch is not None:
         try:
             res_ae_scores = method_autoencoder(X_tr, X_val, X_te, y_val, cfg)
-            res_ae = _evaluate_method("Autoencoder", res_ae_scores, y_val, y_te, attack_val, attack_te)
+            res_ae = _evaluate_method("Autoencoder", res_ae_scores, y_val, y_te, attack_val, attack_te, cfg.target_fpr)
             results.append(res_ae)
         except Exception:
             pass
@@ -381,6 +387,14 @@ def method_autoencoder(
     if torch is None:
         raise RuntimeError("PyTorch not installed")
 
+    # Reproducibility
+    try:
+        torch.manual_seed(cfg.seed)
+        if torch.cuda.is_available():
+            torch.cuda.manual_seed_all(cfg.seed)
+    except Exception:
+        pass
+
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     # Cap sizes for speed
@@ -428,6 +442,8 @@ def method_autoencoder(
     best_loss = math.inf
     patience = cfg.ae_patience
     epochs_no_improve = 0
+    train_curve: List[float] = []
+    val_curve: List[float] = []
 
     for epoch in range(cfg.ae_epochs):
         model.train()
@@ -440,7 +456,8 @@ def method_autoencoder(
             loss.backward()
             opt.step()
             epoch_loss += loss.item() * len(xb)
-        epoch_loss /= len(ds_tr)
+        epoch_loss /= max(1, len(ds_tr))
+        train_curve.append(float(epoch_loss))
 
         # Validation on benign-only portion
         val_loss = epoch_loss
@@ -456,6 +473,7 @@ def method_autoencoder(
                     tot += l * len(xb)
                     n += len(xb)
             val_loss = tot / max(1, n)
+        val_curve.append(float(val_loss))
 
         # Early stopping
         if val_loss < best_loss - 1e-6:
@@ -466,6 +484,23 @@ def method_autoencoder(
             epochs_no_improve += 1
             if epochs_no_improve >= patience:
                 break
+
+    # Plot training curve if possible
+    try:
+        plt.figure(figsize=(6,4))
+        plt.plot(train_curve, label="train")
+        if val_curve:
+            plt.plot(val_curve, label="val")
+        plt.xlabel("epoch")
+        plt.ylabel("loss")
+        plt.title("Autoencoder training curve")
+        plt.legend()
+        cfg.out_dir.mkdir(parents=True, exist_ok=True)
+        plt.tight_layout()
+        plt.savefig(cfg.out_dir / "ae_loss.png", dpi=160)
+        plt.close()
+    except Exception:
+        pass
 
     if best_state is not None:
         model.load_state_dict(best_state)
@@ -490,7 +525,9 @@ def method_autoencoder(
         "scores_train": s_train,
         "scores_val": s_val,
         "scores_test": s_test,
-        "model": "autoencoder",
+    "model": "autoencoder",
+    "train_curve": train_curve,
+    "val_curve": val_curve,
     }
 
 

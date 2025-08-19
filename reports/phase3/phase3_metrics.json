@@ -1,0 +1,201 @@
+{
+  "classifier": "rf",
+  "classifier_val_results": [
+    {
+      "name": "rf",
+      "val_macro_f1": 0.7998873472759582
+    },
+    {
+      "name": "logreg",
+      "val_macro_f1": 0.30098139761638854
+    }
+  ],
+  "test_macro_f1": 0.7904100300776876,
+  "test_report": {
+    "Benign": {
+      "precision": 0.9951473937873436,
+      "recall": 0.9996020956296837,
+      "f1-score": 0.9973697705579726,
+      "support": 30158.0
+    },
+    "DoS-TCP_Flood": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "DDoS-TCP_Flood": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "DNS Spoofing": {
+      "precision": 0.8596491228070176,
+      "recall": 0.31210191082802546,
+      "f1-score": 0.45794392523364486,
+      "support": 157.0
+    },
+    "Cross-Site Scripting (XSS)": {
+      "precision": 0.9375,
+      "recall": 0.8544303797468354,
+      "f1-score": 0.8940397350993378,
+      "support": 158.0
+    },
+    "Brute Force": {
+      "precision": 0.875,
+      "recall": 0.7579617834394905,
+      "f1-score": 0.8122866894197952,
+      "support": 157.0
+    },
+    "accuracy": 0.9940907606921319,
+    "macro avg": {
+      "precision": 0.6112160860990602,
+      "recall": 0.4873493616073392,
+      "f1-score": 0.5269400200517917,
+      "support": 30630.0
+    },
+    "weighted avg": {
+      "precision": 0.9935396674541108,
+      "recall": 0.9940907606921319,
+      "f1-score": 0.9931231480618224,
+      "support": 30630.0
+    }
+  },
+  "test_confusion_matrix": [
+    [
+      30146,
+      0,
+      0,
+      6,
+      2,
+      4
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      97,
+      0,
+      0,
+      49,
+      4,
+      7
+    ],
+    [
+      17,
+      0,
+      0,
+      0,
+      135,
+      6
+    ],
+    [
+      33,
+      0,
+      0,
+      2,
+      3,
+      119
+    ]
+  ],
+  "stage1": {
+    "method": "autoencoder",
+    "threshold": 0.06316324323415756,
+    "flagged_packets": 233681,
+    "unique_flagged_flow_keys": 219459
+  },
+  "stage2": {
+    "flagged_flows_total": 811,
+    "stage1_false_positives": 343,
+    "stage2_false_positives": 0,
+    "false_positive_reduction": 1.0
+  },
+  "features_used": [
+    "ack_flag_count",
+    "active_max",
+    "active_mean",
+    "active_min",
+    "active_std",
+    "average_packet_size",
+    "bwd_bulk_rate_avg",
+    "bwd_bytes/bulk_avg",
+    "bwd_header_length",
+    "bwd_iat_max",
+    "bwd_iat_mean",
+    "bwd_iat_min",
+    "bwd_iat_std",
+    "bwd_iat_total",
+    "bwd_init_win_bytes",
+    "bwd_packet/bulk_avg",
+    "bwd_packet_length_max",
+    "bwd_packet_length_mean",
+    "bwd_packet_length_min",
+    "bwd_packet_length_std",
+    "bwd_packets/s",
+    "bwd_segment_size_avg",
+    "cwr_flag_count",
+    "down/up_ratio",
+    "dst_port",
+    "ece_flag_count",
+    "fin_flag_count",
+    "flow_bytes/s",
+    "flow_duration",
+    "flow_iat_max",
+    "flow_iat_mean",
+    "flow_iat_min",
+    "flow_iat_std",
+    "flow_packets/s",
+    "fwd_act_data_pkts",
+    "fwd_header_length",
+    "fwd_iat_max",
+    "fwd_iat_mean",
+    "fwd_iat_min",
+    "fwd_iat_std",
+    "fwd_iat_total",
+    "fwd_init_win_bytes",
+    "fwd_packet_length_max",
+    "fwd_packet_length_mean",
+    "fwd_packet_length_min",
+    "fwd_packet_length_std",
+    "fwd_packets/s",
+    "fwd_psh_flags",
+    "fwd_seg_size_min",
+    "fwd_segment_size_avg",
+    "idle_max",
+    "idle_mean",
+    "idle_min",
+    "idle_std",
+    "packet_length_max",
+    "packet_length_mean",
+    "packet_length_min",
+    "packet_length_std",
+    "packet_length_variance",
+    "protocol",
+    "psh_flag_count",
+    "rst_flag_count",
+    "src_port",
+    "subflow_bwd_bytes",
+    "subflow_bwd_packets",
+    "subflow_fwd_bytes",
+    "subflow_fwd_packets",
+    "syn_flag_count",
+    "total_bwd_packets",
+    "total_fwd_packet",
+    "total_length_of_bwd_packet",
+    "total_length_of_fwd_packet"
+  ]
+}
