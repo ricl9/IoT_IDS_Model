@@ -26,3 +26,8 @@ python -m src.cli_phase2 --data data/packet_clean.parquet --out reports/phase2
 Notes:
 - Plots and metrics depend on data availability and class balance.
 - Autoencoder training is capped for speed and uses early stopping on benign-only validation.
+
+Snapshot of current run
+- Best method: Autoencoder
+- Validation F1 ≈ 0.847; Test F1 ≈ 0.847 at ~2% target FPR
+- See `roc_val.png`, `roc_test.png`, and `ae_loss.png` for curves; `phase2_metrics.json` includes per-attack recalls and confusion matrices.
