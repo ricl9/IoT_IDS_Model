@@ -7,10 +7,11 @@ from typing import Dict, List, Tuple
 
 import numpy as np
 import pandas as pd
-from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier, HistGradientBoostingClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, confusion_matrix, f1_score
 from sklearn.model_selection import train_test_split
+from sklearn.utils.class_weight import compute_class_weight
 
 from .data_preparation import generate_sampled_dataset
 from .phase2_anomaly import method_autoencoder, method_isolation_forest
@@ -34,6 +35,16 @@ class Phase3Config:
     attack_max: int = 6_200
     # Classifier choices to try
     classifiers: Tuple[str, ...] = ("rf", "gb", "logreg")
+    # Oversampling floor per class after sampling (to stabilize macro-F1)
+    per_class_min: int = 300
+    # Tunables for models
+    rf_n_estimators: int = 400
+    rf_min_samples_leaf: int = 1
+    hgb_max_depth: int | None = None
+    hgb_learning_rate: float = 0.1
+    hgb_max_iter: int = 200
+    logreg_max_iter: int = 500
+    logreg_solver: str = "lbfgs"
 
 
 ATTACK_CLASS_ORDER = [
@@ -159,6 +170,19 @@ def _aggregate_flows(flow_df: pd.DataFrame, flow_meta: Dict) -> pd.DataFrame:
     return agg
 
 
+def _stage1_flow_features(pkt_scored: pd.DataFrame) -> pd.DataFrame:
+    # Derive flow-level features from Stage-1 packet scores
+    grp = pkt_scored.groupby("flow_key")
+    df = grp.agg(
+        total_packets=("stage1_score", "size"),
+        flagged_packets=("stage1_pred", "sum"),
+        mean_stage1_score=("stage1_score", "mean"),
+        max_stage1_score=("stage1_score", "max"),
+    ).reset_index()
+    df["flagged_ratio"] = (df["flagged_packets"].astype(float) / df["total_packets"].clip(lower=1)).astype(float)
+    return df
+
+
 def _prepare_flow_samples(flow_df: pd.DataFrame, cfg: Phase3Config) -> pd.DataFrame:
     # Use existing sampling utility to create imbalanced dataset for training
     df = generate_sampled_dataset(
@@ -168,22 +192,69 @@ def _prepare_flow_samples(flow_df: pd.DataFrame, cfg: Phase3Config) -> pd.DataFr
         attack_max=cfg.attack_max,
         seed=cfg.seed,
     )
+    # Optional: ensure a minimum number per class by upsampling
+    if cfg.per_class_min and cfg.per_class_min > 0 and "attack_type" in df.columns:
+        parts: List[pd.DataFrame] = []
+        for k, g in df.groupby("attack_type"):
+            if len(g) >= cfg.per_class_min:
+                parts.append(g)
+            else:
+                # upsample with replacement to reach the floor
+                if len(g) > 0:
+                    reps = cfg.per_class_min
+                    idx = np.random.default_rng(cfg.seed).choice(g.index.to_numpy(), size=reps, replace=True)
+                    parts.append(g.loc[idx])
+                else:
+                    # if class missing entirely, skip; it won't appear in this sample
+                    pass
+        if parts:
+            df = pd.concat(parts, ignore_index=True).sample(frac=1.0, random_state=cfg.seed).reset_index(drop=True)
     return df
 
 
-def _train_classifiers(X_tr: np.ndarray, y_tr: np.ndarray, X_val: np.ndarray, y_val: np.ndarray, methods: Tuple[str, ...], seed: int):
+def _train_classifiers(X_tr: np.ndarray, y_tr: np.ndarray, X_val: np.ndarray, y_val: np.ndarray, methods: Tuple[str, ...], seed: int, cfg: Phase3Config):
     results = []
     models = {}
+    # Class weights for imbalance
+    classes = np.unique(y_tr)
+    cw = compute_class_weight(class_weight="balanced", classes=classes, y=y_tr)
+    class_weight = {int(c): float(w) for c, w in zip(classes, cw)}
+    # Sample weights vector for learners without class_weight param
+    sw_tr = np.array([class_weight[int(c)] for c in y_tr], dtype=np.float32)
     for m in methods:
         if m == "rf":
-            clf = RandomForestClassifier(n_estimators=300, max_depth=None, n_jobs=-1, random_state=seed)
+            clf = RandomForestClassifier(
+                n_estimators=cfg.rf_n_estimators,
+                max_depth=None,
+                min_samples_leaf=cfg.rf_min_samples_leaf,
+                n_jobs=-1,
+                random_state=seed,
+                class_weight=class_weight,
+            )
         elif m == "gb":
             clf = GradientBoostingClassifier(random_state=seed)
+        elif m == "hgb":
+            clf = HistGradientBoostingClassifier(
+                random_state=seed,
+                max_depth=cfg.hgb_max_depth,
+                learning_rate=cfg.hgb_learning_rate,
+                max_iter=cfg.hgb_max_iter,
+            )
         elif m == "logreg":
-            clf = LogisticRegression(max_iter=200, n_jobs=-1, multi_class="auto", random_state=seed)
+            clf = LogisticRegression(
+                max_iter=cfg.logreg_max_iter,
+                n_jobs=-1,
+                random_state=seed,
+                class_weight=class_weight,
+                solver=cfg.logreg_solver,
+                multi_class="auto",
+            )
         else:
             continue
-        clf.fit(X_tr, y_tr)
+        if m == "hgb":
+            clf.fit(X_tr, y_tr, sample_weight=sw_tr)
+        else:
+            clf.fit(X_tr, y_tr)
         yv = clf.predict(X_val)
         f1 = f1_score(y_val, yv, average="macro")
         results.append({"name": m, "val_macro_f1": float(f1)})
@@ -209,6 +280,14 @@ def run_phase3(cfg: Phase3Config) -> Dict:
 
     # 2) Aggregate flows (segment consolidation)
     flows_agg = _aggregate_flows(flow_df_raw, flow_meta)
+    # 2b) Derive Stage-1 flow features and join
+    s1f = _stage1_flow_features(pkt_scored)
+    flows_agg = flows_agg.merge(s1f, on="flow_key", how="left")
+    # Fill missing Stage-1 features with zeros for flows not seen at packet level
+    for c in ["total_packets", "flagged_packets", "mean_stage1_score", "max_stage1_score", "flagged_ratio"]:
+        if c not in flows_agg.columns:
+            flows_agg[c] = 0.0
+        flows_agg[c] = flows_agg[c].fillna(0.0)
 
     # 3) Prepare flow training data via sampling
     flows_sampled = _prepare_flow_samples(flows_agg, cfg)
@@ -218,6 +297,8 @@ def run_phase3(cfg: Phase3Config) -> Dict:
 
     # Feature matrix
     feat_cols = [c for c in flow_meta.get("numeric_cols", []) if c not in ("label",)]
+    # Add Stage-1 derived features
+    feat_cols += ["total_packets", "flagged_packets", "mean_stage1_score", "max_stage1_score", "flagged_ratio"]
     X = flows_sampled[feat_cols].astype(np.float32).to_numpy()
     y = flows_sampled["class_id"].to_numpy().astype(int)
 
@@ -226,7 +307,7 @@ def run_phase3(cfg: Phase3Config) -> Dict:
     X_val, X_te, y_val, y_te = train_test_split(X_tmp, y_tmp, test_size=0.5, random_state=cfg.seed, stratify=y_tmp)
 
     # 4) Train classifiers and select best
-    best_name, best_model, cls_results = _train_classifiers(X_tr, y_tr, X_val, y_val, cfg.classifiers, cfg.seed)
+    best_name, best_model, cls_results = _train_classifiers(X_tr, y_tr, X_val, y_val, cfg.classifiers, cfg.seed, cfg)
 
     # 5) Evaluate on test (overall)
     y_hat = best_model.predict(X_te)

@@ -1,0 +1,74 @@
+{
+  "runs": [
+    {
+      "id": "A",
+      "target_fpr": 0.02,
+      "per_class_min": 600,
+      "classifiers": [
+        "rf",
+        "hgb"
+      ],
+      "rf_n": 600,
+      "leaf": 2,
+      "hgb_depth": 8,
+      "hgb_lr": 0.05,
+      "hgb_iter": 350,
+      "chosen": "rf",
+      "macro_f1": 0.7898249741548286,
+      "stage2_fp_reduction": 0.9825072886297376,
+      "time_sec": 25.94
+    },
+    {
+      "id": "B",
+      "target_fpr": 0.025,
+      "per_class_min": 800,
+      "classifiers": [
+        "rf"
+      ],
+      "rf_n": 800,
+      "leaf": 3,
+      "hgb_depth": 8,
+      "hgb_lr": 0.05,
+      "hgb_iter": 350,
+      "chosen": "rf",
+      "macro_f1": 0.7545146676418522,
+      "stage2_fp_reduction": 0.9413265306122449,
+      "time_sec": 22.25
+    },
+    {
+      "id": "C",
+      "target_fpr": 0.025,
+      "per_class_min": 800,
+      "classifiers": [
+        "hgb"
+      ],
+      "rf_n": 600,
+      "leaf": 2,
+      "hgb_depth": 10,
+      "hgb_lr": 0.05,
+      "hgb_iter": 450,
+      "chosen": "hgb",
+      "macro_f1": 0.5236268663744867,
+      "stage2_fp_reduction": 0.7576530612244898,
+      "time_sec": 18.6
+    },
+    {
+      "id": "D",
+      "target_fpr": 0.03,
+      "per_class_min": 800,
+      "classifiers": [
+        "rf",
+        "hgb"
+      ],
+      "rf_n": 800,
+      "leaf": 3,
+      "hgb_depth": 8,
+      "hgb_lr": 0.05,
+      "hgb_iter": 450,
+      "chosen": "rf",
+      "macro_f1": 0.7524633582439371,
+      "stage2_fp_reduction": 0.9448275862068966,
+      "time_sec": 25.29
+    }
+  ]
+}

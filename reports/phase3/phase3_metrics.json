@@ -3,20 +3,20 @@
   "classifier_val_results": [
     {
       "name": "rf",
-      "val_macro_f1": 0.7998873472759582
+      "val_macro_f1": 0.7283872332739904
     },
     {
-      "name": "logreg",
-      "val_macro_f1": 0.30098139761638854
+      "name": "hgb",
+      "val_macro_f1": 0.5322294869900837
     }
   ],
-  "test_macro_f1": 0.7904100300776876,
+  "test_macro_f1": 0.7524633582439371,
   "test_report": {
     "Benign": {
-      "precision": 0.9951473937873436,
-      "recall": 0.9996020956296837,
-      "f1-score": 0.9973697705579726,
-      "support": 30158.0
+      "precision": 0.9858171503382064,
+      "recall": 0.9866783140423673,
+      "f1-score": 0.9862475442043221,
+      "support": 9158.0
     },
     "DoS-TCP_Flood": {
       "precision": 0.0,
@@ -31,98 +31,98 @@
       "support": 0.0
     },
     "DNS Spoofing": {
-      "precision": 0.8596491228070176,
-      "recall": 0.31210191082802546,
-      "f1-score": 0.45794392523364486,
+      "precision": 0.6781609195402298,
+      "recall": 0.37579617834394907,
+      "f1-score": 0.48360655737704916,
       "support": 157.0
     },
     "Cross-Site Scripting (XSS)": {
-      "precision": 0.9375,
-      "recall": 0.8544303797468354,
-      "f1-score": 0.8940397350993378,
+      "precision": 0.7722222222222223,
+      "recall": 0.879746835443038,
+      "f1-score": 0.8224852071005917,
       "support": 158.0
     },
     "Brute Force": {
-      "precision": 0.875,
-      "recall": 0.7579617834394905,
-      "f1-score": 0.8122866894197952,
+      "precision": 0.6446700507614214,
+      "recall": 0.8089171974522293,
+      "f1-score": 0.7175141242937854,
       "support": 157.0
     },
-    "accuracy": 0.9940907606921319,
+    "accuracy": 0.9720664589823468,
     "macro avg": {
-      "precision": 0.6112160860990602,
-      "recall": 0.4873493616073392,
-      "f1-score": 0.5269400200517917,
-      "support": 30630.0
+      "precision": 0.5134783904770133,
+      "recall": 0.5085230875469307,
+      "f1-score": 0.5016422388292914,
+      "support": 9630.0
     },
     "weighted avg": {
-      "precision": 0.9935396674541108,
-      "recall": 0.9940907606921319,
-      "f1-score": 0.9931231480618224,
-      "support": 30630.0
+      "precision": 0.9717351024138902,
+      "recall": 0.9720664589823468,
+      "f1-score": 0.9709847995397088,
+      "support": 9630.0
     }
   },
   "test_confusion_matrix": [
     [
-      30146,
+      9036,
       0,
       0,
-      6,
+      28,
+      33,
+      61
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      91,
+      0,
+      0,
+      59,
       2,
+      5
+    ],
+    [
+      15,
+      0,
+      0,
+      0,
+      139,
       4
     ],
     [
+      24,
       0,
       0,
       0,
-      0,
-      0,
-      0
-    ],
-    [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    [
-      97,
-      0,
-      0,
-      49,
-      4,
-      7
-    ],
-    [
-      17,
-      0,
-      0,
-      0,
-      135,
-      6
-    ],
-    [
-      33,
-      0,
-      0,
-      2,
-      3,
-      119
+      6,
+      127
     ]
   ],
   "stage1": {
     "method": "autoencoder",
-    "threshold": 0.06316324323415756,
-    "flagged_packets": 233681,
-    "unique_flagged_flow_keys": 219459
+    "threshold": 0.05335709825158119,
+    "flagged_packets": 246033,
+    "unique_flagged_flow_keys": 227650
   },
   "stage2": {
-    "flagged_flows_total": 811,
-    "stage1_false_positives": 343,
-    "stage2_false_positives": 0,
-    "false_positive_reduction": 1.0
+    "flagged_flows_total": 1000,
+    "stage1_false_positives": 435,
+    "stage2_false_positives": 24,
+    "false_positive_reduction": 0.9448275862068966
   },
   "features_used": [
     "ack_flag_count",
@@ -196,6 +196,11 @@
     "total_bwd_packets",
     "total_fwd_packet",
     "total_length_of_bwd_packet",
-    "total_length_of_fwd_packet"
+    "total_length_of_fwd_packet",
+    "total_packets",
+    "flagged_packets",
+    "mean_stage1_score",
+    "max_stage1_score",
+    "flagged_ratio"
   ]
 }
